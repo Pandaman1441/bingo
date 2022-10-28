@@ -64,7 +64,7 @@ class Deck():
         """
         card = None
         n -= 1
-        if 0 <= n < self.__dSize():
+        if 0 <= n < self.__dSize:
             card = self.__deck[n]
         return card
 
@@ -76,6 +76,6 @@ class Deck():
         """
         for i in range(self.__dSize):
             c = self.getCard(i)
-            print(c)
+            return c
         pass  	    	       
 

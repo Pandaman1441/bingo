@@ -23,7 +23,7 @@
 # INDENTATION, INDETERMINATION, INTOXICATION, INDOCTRINATION, INTOLERANCE,  	    	       
 # INDULGENCE, INDELICATENESS, INDISCRETION, INEFFECTIVENESS OR IN CONNECTION  	    	       
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  	    	       
-
+import math
 import RandNumberSet
 class Card():  	    	       
     COLUMN_NAMES = list("BINGODARLYZEMPUX")  	    	       
@@ -36,12 +36,13 @@ class Card():
         self.__cSize = cSize
         self.__ns = ns
         self.__value = [[0 for x in range(cSize)] for y in range(cSize)]
-        ns.shuffle()
-        self.__card = []
-        for i in range(cSize ** 2):
-            self.__card.append(ns.next_row())
-        if (cSize % 2 == 1):
-            self.__card[(cSize * cSize) // 2] = "FREE!"
+        self.__ns.shuffle()
+        for i in range(self.__cSize):
+            for j in range(self.__cSize):
+                if i == math.floor(self.__cSize/2) and j == math.floor(self.__cSize/2) and self.__cSize % 2 == 1:
+                    self.__value[i][j] = "FREE!"
+                else:
+                    self.__value[i][j] = self.__ns.__getitem__(i)
         pass
 
     def id(self):  	    	       
@@ -85,7 +86,7 @@ class Card():
                 if self.__cSize % 2 != 0 and (i * self.__cSize + j) == int(pow(self.__cSize, 2) /2):
                     cardFormat += "{:^5}".format("FREE!")
                 else:
-                    cardFormat += str("{:^5}".format(self.__ns[i * self.__cSize + j]))
+                    cardFormat += str("{:^5}".format(self.__ns[i][j]))
                 cardFormat += "|"
             cardFormat += "\n"
             cardFormat += "+"
